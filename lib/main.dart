@@ -39,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Icon(CupertinoIcons.info_circle, 
             color: CupertinoColors.white,),
           onPressed: () {
-             showCupertinoModalPopup(
+            showCupertinoModalPopup(
              context: context,
               builder: (context) => _buildInfoDialog(context),
            );
@@ -48,6 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       child: SafeArea(
         child: ListView(
+          // padding: EdgeInsets.only(top: 10.0),
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
@@ -96,7 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                 ),
-               CupertinoListTile(
+                CupertinoListTile(
                   title: Text(
                     'Apple Account Suggestions',
                     style: TextStyle(fontSize: 18),
@@ -123,7 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-                CupertinoListSection.insetGrouped(
+            CupertinoListSection.insetGrouped(
               children: <Widget>[
                 CupertinoListTile(
                   title: Text('Software Update Available'),
@@ -149,7 +150,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
-             CupertinoListSection.insetGrouped(
+            CupertinoListSection.insetGrouped(
               children: <Widget>[
                CupertinoListTile(
                 leading: Container(
@@ -189,7 +190,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: Text('Wi-Fi'),
                     trailing: CupertinoListTileChevron(),
                     onTap: () {
-                         Navigator.push(
+                      Navigator.push(
                         context,
                         CupertinoPageRoute(
                           builder: (context) => WifiSettingsPage(),
@@ -317,7 +318,6 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 }
-
 
 class WifiSettingsPage extends StatefulWidget {
   const WifiSettingsPage({super.key});
@@ -474,6 +474,8 @@ class _WifiSettingsPageState extends State<WifiSettingsPage> {
     );
   }
 }
+
+
 class BluetoothSettings extends StatefulWidget {
   const BluetoothSettings({super.key});
 
