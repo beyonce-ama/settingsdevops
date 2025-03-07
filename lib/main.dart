@@ -189,11 +189,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: Text('Wi-Fi'),
                     trailing: CupertinoListTileChevron(),
                     onTap: () {
-                      Navigator.push(
+                         Navigator.push(
                         context,
                         CupertinoPageRoute(
                           builder: (context) => WifiSettingsPage(),
                         ),
+                      );
                     },
                   ),
                   CupertinoListTile(
@@ -403,7 +404,66 @@ class _WifiSettingsPageState extends State<WifiSettingsPage> {
                   ),
                   
                 ),
+                
+                SizedBox(height: 10),
+                if ( ! _wifiEnabled)
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text('AirDrop, AirPlay, Notify When Left Behind, and improved location accuracy require Wi-Fi.', 
+                  style: TextStyle(fontSize: 15),),
+                ),
                
+                if ( _wifiEnabled)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20.0, top: 40,bottom: 10),
+                            child: Text(
+                              'NETWORKS',
+                              style: TextStyle(fontSize: 13),
+                            ),
+                          ),
+                          if (_isLoadingNetworks)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0, top: 40,bottom: 10),
+                              child: CupertinoActivityIndicator(),
+                            ),
+                        ],
+                      ),
+                      Container( 
+          decoration: BoxDecoration(
+                    color: CupertinoColors.systemFill, 
+            borderRadius: BorderRadius.circular(10), 
+          ),
+          child: Column(
+            children: [
+              for (int i = 0; i < _wifiNetworks.length; i++)
+                Column(
+                  children: [
+                    CupertinoListTile(
+                      title: Text(_wifiNetworks[i]),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(width: 8),
+                          Icon(CupertinoIcons.info_circle),
+                        ],
+                      ),
+                    ),
+                    if (i < _wifiNetworks.length - 1) 
+                      Divider(
+                        height: 1,
+                        color: CupertinoColors.separator,
+                      ),
+                  ],
+                ),
+            ],
+          ),
+        )
+                    ],
                   ),
                 SizedBox(height: 20),
               ],
