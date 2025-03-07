@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(MyApp());
@@ -219,7 +220,10 @@ class _SettingsPageState extends State<SettingsPage> {
                       ],
                     ),
                     onTap: () {
-                      
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(builder: (context) => BluetoothSettings()),
+                      );
                     },
                   ),
                 CupertinoListTile(
@@ -310,6 +314,101 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 
+class BluetoothSettings extends StatefulWidget {
+  const BluetoothSettings({super.key});
+
+  @override
+  _BluetoothSettingsPageState createState() => _BluetoothSettingsPageState();
+}
+
+class _BluetoothSettingsPageState extends State<BluetoothSettings> {
+
+  bool _bluetoothEnabled = false;
+  List<String> _bluetoothDevices = [];
+  bool _isLoadingDevices = false;
+
+  Future<void> _fetchBluetoothDevices() async {
+    setState(() {
+      _isLoadingDevices = true;
+    });
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      _bluetoothDevices = ['Airpods', 'Apple Watch', 'Lenovo']; 
+      _isLoadingDevices = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Bluetooth'),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 50),
+            Container(
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemFill,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.all(16),
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 20),
+                    Icon(CupertinoIcons.bluetooth, size: 60),
+                    SizedBox(height: 10),
+                    Text('Bluetooth', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 10),
+                    Text(
+                      'Connect to Bluetooth devices, view available devices, and manage settings for pairing.',
+                      textAlign: TextAlign.center,
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text('Learn more...'),
+                    ),
+                    SizedBox(height: 20),
+                    Divider(
+                      height: 1,
+                      color: CupertinoColors.separator,
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('Bluetooth'),
+                        CupertinoSwitch(
+                          value: _bluetoothEnabled,
+                          onChanged: (value) async {
+                            setState(() {
+                              _bluetoothEnabled = value;
+                            });
+                            if (value) {
+                              await _fetchBluetoothDevices();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            
+              ],
+            ),
+            SizedBox(height: 20), 
+          ],
+        ),
+      ),
+    );
+  }
+}
 Widget _buildInfoDialog(BuildContext context) {
   return CupertinoAlertDialog(
     title: Text("Team Members"),
