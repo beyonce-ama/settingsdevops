@@ -45,6 +45,14 @@ class _SettingsPageState extends State<SettingsPage> {
       child: SafeArea(
         child: ListView(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
+               child: CupertinoSearchTextField(
+                placeholder: 'Search',
+                prefixIcon: Icon(CupertinoIcons.search),
+                suffixIcon: Icon(CupertinoIcons.mic),
+              ),
+            ),
                CupertinoListSection.insetGrouped(
               children: <Widget>[
                 Padding( 
