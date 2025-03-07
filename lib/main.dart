@@ -95,7 +95,31 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
                 ),
-               
+               CupertinoListTile(
+                  title: Text(
+                    'Apple Account Suggestions',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: CupertinoColors.systemRed,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Text(
+                          '2',
+                          style: TextStyle(color: CupertinoColors.white),
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      CupertinoListTileChevron(),
+                    ],
+                  ),
+                  onTap: () {},
+                ),
               ],
             ),
           ],
