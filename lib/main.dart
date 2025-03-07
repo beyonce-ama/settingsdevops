@@ -189,7 +189,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: Text('Wi-Fi'),
                     trailing: CupertinoListTileChevron(),
                     onTap: () {
-                      
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => WifiSettingsPage(),
+                        ),
                     },
                   ),
                   CupertinoListTile(
@@ -314,6 +318,102 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 
+class WifiSettingsPage extends StatefulWidget {
+  const WifiSettingsPage({super.key});
+
+  @override
+  _WifiSettingsPageState createState() => _WifiSettingsPageState();
+}
+
+class _WifiSettingsPageState extends State<WifiSettingsPage> {
+  bool _wifiEnabled = false;
+  List<String> _wifiNetworks = [];
+  bool _isLoadingNetworks = false;
+
+  Future<void> _fetchWifiNetworks() async {
+    setState(() {
+      _isLoadingNetworks = true;
+    });
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      _wifiNetworks = ['Free Smart', 'Hcc', 'Hcc-CompLab']; 
+      _isLoadingNetworks = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Wi-Fi'),
+      ),
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container( 
+                  decoration: BoxDecoration(
+                    color: CupertinoColors.systemFill, 
+                    borderRadius: BorderRadius.circular(10), 
+                  ),
+                  padding: EdgeInsets.all(16), 
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        Icon(CupertinoIcons.wifi, size: 60),
+                        SizedBox(height: 10),
+                        Text('Wi-Fi', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        Text(
+                          'Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots.',
+                          textAlign: TextAlign.center,
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text('Learn more...'),
+                        ),
+                        SizedBox(height: 20),
+                         Divider(
+                        height: 1,
+                        color: CupertinoColors.separator,
+                      ),
+                        SizedBox(height: 5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text('Wi-Fi'),
+                            CupertinoSwitch(
+                              value: _wifiEnabled,
+                              onChanged: (value) async {
+                                setState(() {
+                                  _wifiEnabled = value;
+                                });
+                                if (value) {
+                                  await _fetchWifiNetworks();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  
+                ),
+               
+                  ),
+                SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 class BluetoothSettings extends StatefulWidget {
   const BluetoothSettings({super.key});
 
