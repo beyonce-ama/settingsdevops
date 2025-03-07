@@ -38,7 +38,10 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Icon(CupertinoIcons.info_circle, 
             color: CupertinoColors.white,),
           onPressed: () {
-            
+             showCupertinoModalPopup(
+             context: context,
+              builder: (context) => _buildInfoDialog(context),
+           );
           },
         ),
       ),
@@ -100,4 +103,62 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+}
+
+
+Widget _buildInfoDialog(BuildContext context) {
+  return CupertinoAlertDialog(
+    title: Text("Team Members"),
+    content: Column(
+      children: [
+        SizedBox(height: 10),
+        SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column( 
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildMemberCard('images/ama.jpg', 'Ama, Beyonce'),
+              _buildMemberCard('images/arpon.jpg', 'Arpon, Jolas'),
+              _buildMemberCard('images/carreon.jpg', 'Carreon, Monica'),
+              _buildMemberCard('images/gamboa.jpg', 'Gamboa, Romel'),
+              _buildMemberCard('images/larin.jpg', 'Larin, Kayle Cedric'),
+              _buildMemberCard('images/macalino.jpg', 'Macalino, Rachelle Anne'),
+            ],
+          ),
+        ),
+        SizedBox(height: 10),
+      ],
+    ),
+    actions: [
+      CupertinoDialogAction(
+        child: Text("Close"),
+        onPressed: () => Navigator.pop(context),
+      ),
+    ],
+  );
+}
+
+Widget _buildMemberCard(String imagePath, String name) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 1.0),
+    child: Row(
+      children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(40),
+              child: Image.asset(
+                imagePath,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(width:10),
+            Text(
+              name,
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 70),
+      ],
+    ),
+  );
 }
