@@ -148,6 +148,82 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ),
+             CupertinoListSection.insetGrouped(
+              children: <Widget>[
+               CupertinoListTile(
+                leading: Container(
+                  width: 30, 
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: CupertinoColors.activeOrange,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center( 
+                    child: Icon(
+                      CupertinoIcons.airplane,
+                      color: CupertinoColors.white, 
+                      size: 18, 
+                    ),
+                  ),
+                ),
+                title: Text('Airplane Mode'),
+                trailing: CupertinoSwitch(value: false, onChanged: (value) {}),
+              ),
+                CupertinoListTile(
+                    leading: Container(
+                      width: 30, 
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: CupertinoColors.activeBlue, 
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          CupertinoIcons.wifi,
+                          color: CupertinoColors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    title: Text('Wi-Fi'),
+                    trailing: CupertinoListTileChevron(),
+                    onTap: () {
+                      
+                    },
+                  ),
+                  CupertinoListTile(
+                    leading: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: CupertinoColors.activeBlue, 
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          CupertinoIcons.bluetooth,
+                          color: CupertinoColors.white,
+                          size: 18,
+                        ),
+                      ),
+                    ),
+                    title: Text('Bluetooth'),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Text('Off'),
+                        ),
+                        CupertinoListTileChevron(),
+                      ],
+                    ),
+                    onTap: () {
+                      
+                    },
+                  ),
+              ],
+            ),
           ],
         ),
       ),
