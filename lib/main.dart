@@ -222,6 +222,84 @@ class _SettingsPageState extends State<SettingsPage> {
                       
                     },
                   ),
+                CupertinoListTile(
+                  leading: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.activeGreen,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Icon(
+                         CupertinoIcons.dot_radiowaves_left_right,
+                        color: CupertinoColors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                  title: Text('Cellular'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Text('Off'),
+                      ),
+                      CupertinoListTileChevron(),
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                CupertinoListTile(
+                  leading: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.activeGreen,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        CupertinoIcons.personalhotspot,
+                        color: CupertinoColors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                  title: Text('Personal Hotspot'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Text('Off'),
+                      ),
+                      CupertinoListTileChevron(),
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+                CupertinoListTile(
+                  leading: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.activeGreen,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        CupertinoIcons.battery_full,
+                        color: CupertinoColors.white,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                  title: Text('Battery'),
+                  trailing: CupertinoListTileChevron(),
+                  onTap: () {},
+                ),
               ],
             ),
           ],
