@@ -399,7 +399,84 @@ class _BluetoothSettingsPageState extends State<BluetoothSettings> {
                 ),
               ),
             ),
-            
+            Column( 
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (!_bluetoothEnabled) 
+                  Column(
+                    children: [
+                      SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Text(
+                          'AirDrop, Handoff, and other features require Bluetooth.',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                if (_bluetoothEnabled) 
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25, top: 10, bottom: 10),
+                    child: Text(
+                      'This iPhone is discoverable as "iPhone" while Bluetooth Setting is open.',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  ),
+                if (_bluetoothEnabled) 
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 25, top: 30),
+                            child: Text(
+                              'MY DEVICES',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          if (_isLoadingDevices)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10, top: 30),
+                              child: CupertinoActivityIndicator(),
+                            ),
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      Container( 
+                        decoration: BoxDecoration(
+                        color: CupertinoColors.systemFill,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            for (int i = 0; i < _bluetoothDevices.length; i++)
+                              Column(
+                                children: [
+                                  CupertinoListTile( 
+                                    title: Text(_bluetoothDevices[i]),
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text('Not Connected', style: TextStyle(fontSize: 15)),
+                                        SizedBox(width: 8),
+                                        Icon(CupertinoIcons.info_circle, color: CupertinoColors.activeBlue),
+                                      ],
+                                    ),
+                                  ),
+                                  if (i < _bluetoothDevices.length - 1) 
+                                    Divider(
+                                      height: 1,
+                                      color: CupertinoColors.separator,
+                                    ),
+                                ],
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
               ],
             ),
             SizedBox(height: 20), 
