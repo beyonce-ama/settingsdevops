@@ -342,7 +342,7 @@ class _WifiSettingsPageState extends State<WifiSettingsPage> {
     });
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
@@ -351,76 +351,80 @@ class _WifiSettingsPageState extends State<WifiSettingsPage> {
       child: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Container( 
-                  decoration: BoxDecoration(
-                    color: CupertinoColors.systemFill, 
-                    borderRadius: BorderRadius.circular(10), 
-                  ),
-                  padding: EdgeInsets.all(16), 
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Icon(CupertinoIcons.wifi, size: 60),
-                        SizedBox(height: 10),
-                        Text('Wi-Fi', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
-                        Text(
-                          'Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots.',
-                          textAlign: TextAlign.center,
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text('Learn more...'),
-                        ),
-                        SizedBox(height: 20),
-                         Divider(
-                        height: 1,
-                        color: CupertinoColors.separator,
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.systemFill,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.all(15),
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Icon(CupertinoIcons.wifi, size: 60),
+                          SizedBox(height: 10),
+                          Text('Wi-Fi',
+                              style: TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 10),
+                          Text(
+                            'Connect to Wi-Fi, view available networks, and manage settings for joining networks and nearby hotspots.',
+                            textAlign: TextAlign.center,
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text('Learn more...'),
+                          ),
+                          SizedBox(height: 20),
+                          Divider(
+                            height: 1,
+                            color: CupertinoColors.separator,
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text('Wi-Fi'),
+                              CupertinoSwitch(
+                                value: _wifiEnabled,
+                                onChanged: (value) async {
+                                  setState(() {
+                                    _wifiEnabled = value;
+                                  });
+                                  if (value) {
+                                    await _fetchWifiNetworks();
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                        SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text('Wi-Fi'),
-                            CupertinoSwitch(
-                              value: _wifiEnabled,
-                              onChanged: (value) async {
-                                setState(() {
-                                  _wifiEnabled = value;
-                                });
-                                if (value) {
-                                  await _fetchWifiNetworks();
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
                     ),
                   ),
-                  
                 ),
-                
-                SizedBox(height: 10),
-                if ( ! _wifiEnabled)
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: Text('AirDrop, AirPlay, Notify When Left Behind, and improved location accuracy require Wi-Fi.', 
-                  style: TextStyle(fontSize: 15),),
-                ),
-               
-                if ( _wifiEnabled)
+                if (!_wifiEnabled)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 35.0),
+                    child: Text(
+                      'AirDrop, AirPlay, Notify When Left Behind, and improved location accuracy require Wi-Fi.',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                if (_wifiEnabled)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 20.0, top: 40,bottom: 10),
+                            padding: const EdgeInsets.only(
+                                left: 35.0, top: 20, bottom: 10),
                             child: Text(
                               'NETWORKS',
                               style: TextStyle(fontSize: 13),
@@ -428,41 +432,92 @@ class _WifiSettingsPageState extends State<WifiSettingsPage> {
                           ),
                           if (_isLoadingNetworks)
                             Padding(
-                              padding: const EdgeInsets.only(left: 8.0, top: 40,bottom: 10),
+                              padding: const EdgeInsets.only(
+                                  left: 10.0, top: 20, bottom: 10),
                               child: CupertinoActivityIndicator(),
                             ),
                         ],
                       ),
-                      Container( 
-          decoration: BoxDecoration(
-                    color: CupertinoColors.systemFill, 
-            borderRadius: BorderRadius.circular(10), 
-          ),
-          child: Column(
-            children: [
-              for (int i = 0; i < _wifiNetworks.length; i++)
-                Column(
-                  children: [
-                    CupertinoListTile(
-                      title: Text(_wifiNetworks[i]),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(width: 8),
-                          Icon(CupertinoIcons.info_circle),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: CupertinoColors.systemFill,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              for (int i = 0; i < _wifiNetworks.length; i++)
+                                Column(
+                                  children: [
+                                    CupertinoListTile(
+                                      title: Text(_wifiNetworks[i]),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(width: 8),
+                                          Icon(CupertinoIcons.info_circle),
+                                        ],
+                                      ),
+                                    ),
+                                    if (i < _wifiNetworks.length - 1)
+                                      Divider(
+                                        height: 1,
+                                        color: CupertinoColors.separator,
+                                      ),
+                                  ],
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30,),
+                      CupertinoListSection.insetGrouped(
+                        children: <Widget>[
+                          CupertinoListTile(
+                            title: Text('Ask to Join Networks'),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(width: 8),
+                                Text('Notify'),
+                                CupertinoListTileChevron(),
+                              ],
+                            ),
+                            onTap: () {},
+                          ),
                         ],
                       ),
-                    ),
-                    if (i < _wifiNetworks.length - 1) 
-                      Divider(
-                        height: 1,
-                        color: CupertinoColors.separator,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40),
+                        child: Text(
+                          'Known networks will be joined automatically. If no known networks are available, you will be notified of available networks',
+                          style: TextStyle(fontSize: 13),
+                        ),
                       ),
-                  ],
-                ),
-            ],
-          ),
-        )
+                      CupertinoListSection.insetGrouped(
+                        children: <Widget>[
+                          CupertinoListTile(
+                            title: Text('Auto-Join Hotspot'),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(width: 8),
+                                Text('Automatic'),
+                                CupertinoListTileChevron(),
+                              ],
+                            ),
+                            onTap: () {},
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 40, right: 25),
+                        child: Text(
+                          'Allow this device to automatically discover nearby personal hotspot when no Wi-Fi network is available',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ),
                     ],
                   ),
                 SizedBox(height: 20),
@@ -474,7 +529,6 @@ class _WifiSettingsPageState extends State<WifiSettingsPage> {
     );
   }
 }
-
 
 class BluetoothSettings extends StatefulWidget {
   const BluetoothSettings({super.key});
