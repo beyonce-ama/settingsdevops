@@ -759,6 +759,28 @@ class BatterySettingsState extends State<BatterySettings> {
                 style: TextStyle(fontSize: 14),
               ),
             ),
+            CupertinoListSection.insetGrouped(
+              children: <Widget>[
+                CupertinoListTile(
+                  title: Text('Battery Health & Charging'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('Service'),
+                      CupertinoListTileChevron(),
+                    ],
+                  ),
+                  onTap: () {
+                  },
+                ),
+              ],
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: CupertinoActivityIndicator(),
+              ),
+            ),
           ],
         ),
       ),
