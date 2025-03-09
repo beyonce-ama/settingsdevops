@@ -308,7 +308,12 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   title: Text('Battery'),
                   trailing: CupertinoListTileChevron(),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(builder: (context) => BatterySettings()),
+                      );
+                  },
                 ),
               ],
             ),
@@ -696,6 +701,64 @@ class _BluetoothSettingsPageState extends State<BluetoothSettings> {
               ],
             ),
             SizedBox(height: 20), 
+          ],
+        ),
+      ),
+    );
+  }
+}
+class BatterySettings extends StatefulWidget {
+  const BatterySettings({super.key});
+
+  @override
+  BatterySettingsState createState() => BatterySettingsState();
+}
+class BatterySettingsState extends State<BatterySettings> {
+  bool _batteryPercentageEnabled = false;
+  bool _lowPowerModeEnabled = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('Battery'),
+      ),
+      child: SafeArea(
+        child: ListView(
+          children: <Widget>[
+            CupertinoListSection.insetGrouped(
+              children: <Widget>[
+                CupertinoListTile(
+                  title: Text('Battery Percentage'),
+                  trailing: CupertinoSwitch(
+                    value: _batteryPercentageEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        _batteryPercentageEnabled = value;
+                      });
+                    },
+                  ),
+                ),
+                CupertinoListTile(
+                  title: Text('Low Power Mode'),
+                  trailing: CupertinoSwitch(
+                    value: _lowPowerModeEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        _lowPowerModeEnabled = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 35.0, right: 20.0),
+              child: Text(
+                'Low Power Mode temporarily reduces background activity like downloads and mail fetch until you can fully charge your iPhone.',
+                style: TextStyle(fontSize: 14),
+              ),
+            ),
           ],
         ),
       ),
