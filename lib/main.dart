@@ -328,10 +328,10 @@ class WifiSettingsPage extends StatefulWidget {
   const WifiSettingsPage({super.key});
 
   @override
-  _WifiSettingsPageState createState() => _WifiSettingsPageState();
+  WifiSettingsPageState createState() => WifiSettingsPageState();
 }
 
-class _WifiSettingsPageState extends State<WifiSettingsPage> {
+class WifiSettingsPageState extends State<WifiSettingsPage> {
   bool _wifiEnabled = false;
   List<String> _wifiNetworks = [];
   bool _isLoadingNetworks = false;
@@ -539,10 +539,10 @@ class BluetoothSettings extends StatefulWidget {
   const BluetoothSettings({super.key});
 
   @override
-  _BluetoothSettingsPageState createState() => _BluetoothSettingsPageState();
+  BluetoothSettingsPageState createState() => BluetoothSettingsPageState();
 }
 
-class _BluetoothSettingsPageState extends State<BluetoothSettings> {
+class BluetoothSettingsPageState extends State<BluetoothSettings> {
 
   bool _bluetoothEnabled = false;
   List<String> _bluetoothDevices = [];
